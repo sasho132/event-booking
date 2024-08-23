@@ -18,8 +18,6 @@ type Event struct {
 var events = []Event{}
 
 func (e Event) Save() error {
-	// TODO: add it to database
-
 	query := `
     INSERT INTO events(name, description, location, dateTime, user_id)
     VALUES (?, ?, ?, ?, ?)
