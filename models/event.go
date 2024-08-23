@@ -28,21 +28,51 @@ func (e Event) Save() error {
 	if err != nil {
 		return err
 	}
+	defer stmt.Close()
 
 	result, err := stmt.Exec(e.Name, e.Description, e.Location, e.DateTime, e.UserID)
 	if err != nil {
 		return err
 	}
-	id, err := result.LastInsertId()
-	if err != nil {
-		return err
-	}
 
+	id, err := result.LastInsertId()
 	e.ID = id
 
-	events = append(events, e)
+	return err
+
 }
 
-func GetAllEvents() []Event {
-	return events
+func GetAllEvents() ([]Event, error) {
+	query := `SELECT * FROM events`
+	q, err := db.DB.Prepare(query)
+	if err != nil {
+		return nil, err
+	}
+	rows, err := q.Query()
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var events []Event
+
+	for rows.Next() {
+		var event Event
+		err := rows.Scan(
+			&event.ID,
+			&event.Name,
+			&event.Description,
+			&event.Location,
+			&event.DateTime,
+			&event.UserID,
+		)
+
+		if err != nil {
+			return nil, err
+		}
+
+		events = append(events, event)
+	}
+
+	return events, nil
 }
