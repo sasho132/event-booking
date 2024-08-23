@@ -42,11 +42,8 @@ func (e Event) Save() error {
 
 func GetAllEvents() ([]Event, error) {
 	query := `SELECT * FROM events`
-	q, err := db.DB.Prepare(query)
-	if err != nil {
-		return nil, err
-	}
-	rows, err := q.Query()
+
+	rows, err := db.DB.Query(query)
 	if err != nil {
 		return nil, err
 	}
