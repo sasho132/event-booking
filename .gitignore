@@ -25,6 +25,7 @@
 
 # SQLite db files
 *.db
+*.deb
 
 # OS generated files #
 ######################
