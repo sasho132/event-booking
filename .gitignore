@@ -72,6 +72,3 @@ go.work
 go.work.sum
 
 .editorconfig
-
-# Bruno app folder
-/go-rest-api
