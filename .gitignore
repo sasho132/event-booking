@@ -71,4 +71,5 @@ Thumbs.db
 go.work
 go.work.sum
 
+# EditorConfig file
 .editorconfig
