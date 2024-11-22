@@ -15,7 +15,7 @@ type Event struct {
 	UserID      int64
 }
 
-var events = []Event{}
+// var events = []Event{}
 
 func (e *Event) Save() error {
 	query := `
